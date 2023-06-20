@@ -1,14 +1,15 @@
 #pragma once
 
 #include <vector>
+#include <memory>
 #include "../Character/Character.h"
 #include "../Map/Grid.h"
 
 class CharactersController
 {
 private:
-	std::vector<Character*> allCharacters;
-	Character* currentCharacter;
+	std::vector<std::shared_ptr<Character>> allCharacters;
+	std::weak_ptr<Character> currentCharacter;
 
 public:
 	CharactersController();

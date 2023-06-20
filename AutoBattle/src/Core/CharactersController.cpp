@@ -15,7 +15,7 @@ void CharactersController::CreateCharacter(const std::string& Name,
 
 void CharactersController::SetCharactersToRandomPlace(const Grid& Grid)
 {
-	for (Character* character : allCharacters)
+	for (std::shared_ptr<Character> character : allCharacters)
 	{
 		GridCell* randomCell = Grid.GetRandomUnoccupiedCell();
 		character->SetNewPosition(randomCell->GetPosition());
@@ -26,34 +26,38 @@ void CharactersController::SetCharactersToRandomPlace(const Grid& Grid)
 void CharactersController::ExecuteTurnAction(const int& CurrentCharIndex, const Grid& Grid)
 {
 	currentCharacter = allCharacters[CurrentCharIndex];
-	Character& opponentCharacter = GetClosestOpponent(*currentCharacter);
+
+	std::shared_ptr<Character> currentCharacterPtr = currentCharacter.lock();
+	Character& opponentCharacter = GetClosestOpponent(*currentCharacterPtr);
 	
-	if (Grid.IsCellsAdjacent(currentCharacter->GetPosition(), opponentCharacter.GetPosition()))
+	if (Grid.IsCellsAdjacent(currentCharacterPtr->GetPosition(), opponentCharacter.GetPosition()))
 	{
-		AttackOpponent(*currentCharacter, opponentCharacter);
+		AttackOpponent(*currentCharacterPtr, opponentCharacter);
 		return;
 	}
 
-	MoveTowardsOpponent(*currentCharacter, opponentCharacter.GetPosition(), Grid);
+	MoveTowardsOpponent(*currentCharacterPtr, opponentCharacter.GetPosition(), Grid);
 }
 
 const int& CharactersController::GetCharactersCount() { return allCharacters.size(); }
 
 const bool& CharactersController::IsWinner()
 {
+	std::shared_ptr<Character> currentCharacterPtr = currentCharacter.lock();
+
 	if (allCharacters.size() == 1)
 	{
-		std::cout << currentCharacter->GetName() << " has won the game!\n";
+		std::cout << currentCharacterPtr->GetName() << " has won the game!\n";
 		return true;
 	}
 
-	int currentCharacterTeam = currentCharacter->GetTeam();
+	int currentCharacterTeam = currentCharacterPtr->GetTeam();
 	int opponentsAliveCount = 0;
 
-	for (const Character* character : allCharacters)
+	for (const std::shared_ptr<Character> character : allCharacters)
 	{
 		if (character->GetTeam() == currentCharacterTeam ||
-			character->GetCharacterId() == currentCharacter->GetCharacterId())
+			character->GetCharacterId() == currentCharacterPtr->GetCharacterId())
 			continue;
 
 		opponentsAliveCount++;
@@ -62,7 +66,7 @@ const bool& CharactersController::IsWinner()
 	bool hasWon = opponentsAliveCount <= 0;
 
 	if (hasWon)
-		std::cout << currentCharacter->GetName() << " has won the game!\n";
+		std::cout << currentCharacterPtr->GetName() << " has won the game!\n";
 
 	return hasWon;
 }
@@ -104,10 +108,10 @@ void CharactersController::MoveTowardsOpponent(Character& CurrentCharacter, cons
 Character& CharactersController::GetClosestOpponent(const Character& CurrentCharacter)
 {
 	int closestOpponentDistance = INT_MAX;
-	Character* currentClosestEnemy = allCharacters[0];
+	std::shared_ptr<Character> currentClosestEnemy = allCharacters[0];
 	Vector2 currentCharacterPosition = CurrentCharacter.GetPosition();
 
-	for (Character* character : allCharacters)
+	for (std::shared_ptr<Character> character : allCharacters)
 	{
 		if (CurrentCharacter.GetCharacterId() == character->GetCharacterId() ||
 			CurrentCharacter.GetTeam() == character->GetTeam())
