@@ -11,12 +11,11 @@ class Grid
 private:
 	const int width;
 	const int height;
-	GridCell* grid;
+	std::shared_ptr<GridCell[]> grid;
 
 public:
 	Grid() = default;
 	Grid(const Vector2& MapSize);
-	~Grid();
 	void DrawBattlefield() const;
 	const bool IsCellsAdjacent(const Vector2& FirstPosition, const Vector2& SecondPosition) const;
 	GridCell& GetCellFromDirection(const Vector2& From, const GridCell::Direction& Direction) const;
