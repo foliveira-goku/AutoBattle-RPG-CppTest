@@ -10,8 +10,6 @@ Grid::Grid(const Vector2& MapSize):
 	std::cout << "The battle field has been created with " << width << " rows and " << height << " columns\n";
 }
 
-Grid::~Grid() { delete[] grid; }
-
 std::string GetRedCrossCell()
 {
 	std::cout << "\033[" << 31 << "m";
