@@ -7,10 +7,10 @@
 class Game
 {
 private:
-	CharactersController charsController;
-	InputReader inputReader;
-	TurnController turnController;
-	Grid grid;
+	CharactersController charsController{};
+	InputReader inputReader{};
+	TurnController turnController{};
+	Grid grid{ {0,0} };
 
 public:
 	Game();

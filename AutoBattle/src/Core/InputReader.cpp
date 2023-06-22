@@ -1,6 +1,6 @@
 #include "InputReader.h"
 
-const Vector2& InputReader::GetMapSize()
+const Vector2 InputReader::GetMapSize()
 {
 	std::cout << "Choose the map size.\n";
 
@@ -10,7 +10,7 @@ const Vector2& InputReader::GetMapSize()
 	std::cout << "Amount of columns: \n";
 	int columns = GetIntInput();
 	
-	return { rows, columns };
+	return Vector2{ rows, columns };
 }
 
 const std::string InputReader::GetCharacterName()
@@ -21,7 +21,7 @@ const std::string InputReader::GetCharacterName()
 	return name;
 }
 
-const int& InputReader::GetCharacterClass()
+const int InputReader::GetCharacterClass()
 {
 	std::cout << "Choose Between One of this Classes:\n";
 	std::cout << "[1] Paladin, [2] Warrior, [3] Cleric, [4] Archer\n";
@@ -39,7 +39,7 @@ const int& InputReader::GetCharacterClass()
 	return 0;
 }
 
-const bool& InputReader::WannaQuit()
+const bool InputReader::WannaQuit()
 {
 	std::cout << "Do you want to quit? (y/n): ";
 	char response;
@@ -71,7 +71,7 @@ const bool& InputReader::WannaQuit()
 
 // private
 
-const int& InputReader::GetIntInput()
+const int InputReader::GetIntInput()
 {
 	int number;
 

@@ -1,17 +1,19 @@
 #pragma once
 #include "..\Utils\Vector2.h"
 
-class GridCell
+namespace Direction
 {
-public:
 	enum class Direction
 	{
 		North, South, West, East
 	};
+}
 
+class GridCell
+{
 private:
-	Vector2 position;
-	bool isOccupied;
+	Vector2 position{};
+	bool isOccupied{};
 
 public:
 	GridCell() = default;

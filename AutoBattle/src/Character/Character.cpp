@@ -1,11 +1,9 @@
 #include "Character.h"
-#include "CharacterClassAttributesProvider.h"
 
-Character::Character(const std::string& Name, const CharacterClass& CharacterClass, const int& CharacterId,
-	const int& Team) :
-	charName{ Name }, charClass{ CharacterClass }, charId{ CharacterId }, team{ (Character::Team)Team }, 
-	currentPosition{}, charAttributes { CharacterClassAttributesProvider::GetAttributes(CharacterClass) },
-	charHealth { charAttributes.Vitality }
+Character::Character(const std::string& Name, const CharacterClass::Types& CharacterClass, 
+	const CharacterAttributes& CharAttributes, const int& CharacterId,	const int& Team) :
+	charName{ Name }, charClass{ CharacterClass }, charId{ CharacterId }, team{ static_cast<Team::Team>(Team) }, 
+	currentPosition{}, charAttributes { CharAttributes }, charHealth { charAttributes.Vitality }
 {
 	std::cout << "The character " << Name << " was created.\n";
 
@@ -16,7 +14,7 @@ Character::Character(const std::string& Name, const CharacterClass& CharacterCla
 const std::string& Character::GetName() const { return charName; }
 const Vector2& Character::GetPosition() const { return currentPosition; }
 const int& Character::GetCharacterId() const { return charId; }
-const Character::Team& Character::GetTeam() const { return team; }
+const Team::Team& Character::GetTeam() const { return team; }
 
 const int& Character::GetAttackAttribute() const 
 {

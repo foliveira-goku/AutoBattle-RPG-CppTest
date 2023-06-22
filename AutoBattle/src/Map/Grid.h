@@ -9,16 +9,16 @@
 class Grid
 {
 private:
-	const int width;
-	const int height;
-	std::shared_ptr<GridCell[]> grid;
+	const int width {};
+	const int height{};
+	std::shared_ptr<GridCell[]> grid {};
 
 public:
 	Grid() = default;
 	Grid(const Vector2& MapSize);
 	void DrawBattlefield() const;
 	const bool IsCellsAdjacent(const Vector2& FirstPosition, const Vector2& SecondPosition) const;
-	GridCell& GetCellFromDirection(const Vector2& From, const GridCell::Direction& Direction) const;
+	GridCell& GetCellFromDirection(const Vector2& From, const Direction::Direction& Direction) const;
 	GridCell* GetRandomUnoccupiedCell() const;
 	void PrintGridIsOccupied() const;
 	GridCell& GetCellAt(const Vector2& Position) const;

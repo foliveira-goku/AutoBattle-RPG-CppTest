@@ -24,19 +24,20 @@ void Game::Start()
 void Game::CreatePlayerCharacter(int& TotalCharAmount)
 {
 	charsController.CreateCharacter(inputReader.GetCharacterName(),
-								   (Character::CharacterClass)inputReader.GetCharacterClass(), 0, 0);
+									static_cast<CharacterClass::Types>(inputReader.GetCharacterClass()),
+									0, 0);
 
 	TotalCharAmount++;
 }
 
 void Game::CreateEnemyCharacter(const int& AmountOfEnemies, int& TotalAmountOfCharacters)
 {
-	std::srand(std::time(0));
-
 	for (int i = 0; i < AmountOfEnemies; i++)
 	{
 		int randomClass = std::rand() % 4 + 1;
-		charsController.CreateCharacter("Enemy "+ std::to_string(TotalAmountOfCharacters), (Character::CharacterClass)randomClass, TotalAmountOfCharacters, 1);
+		charsController.CreateCharacter("Enemy "+ std::to_string(TotalAmountOfCharacters), 
+										static_cast<CharacterClass::Types>(randomClass), 
+										TotalAmountOfCharacters, 1);
 		TotalAmountOfCharacters++;
 	}
 }

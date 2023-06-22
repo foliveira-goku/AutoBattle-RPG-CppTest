@@ -48,17 +48,17 @@ const bool Grid::IsCellsAdjacent(const Vector2& FirstPosition, const Vector2& Se
 			distanceX == 1 && distanceY == 1;
 }
 
-GridCell& Grid::GetCellFromDirection(const Vector2& From, const GridCell::Direction& Direction) const
+GridCell& Grid::GetCellFromDirection(const Vector2& From, const Direction::Direction& Direction) const
 {
 	switch (Direction)
 	{
-		case GridCell::Direction::North:
+		case Direction::Direction::North:
 			return grid[From.X + (From.Y + 1) * width];
-		case GridCell::Direction::South:
+		case Direction::Direction::South:
 			return grid[From.X + (From.Y - 1) * width];
-		case GridCell::Direction::West:
+		case Direction::Direction::West:
 			return grid[(From.X - 1) + From.Y * width];
-		case GridCell::Direction::East:
+		case Direction::Direction::East:
 			return grid[(From.X + 1) + From.Y * width];
 		default:
 			break;
