@@ -6,8 +6,8 @@
 class TurnController
 {
 private:
-	int currentCharacterIndex;
-	std::function<const int& ()> getCharactersCount;
+	int currentCharacterIndex {};
+	std::function<const int& ()> getCharactersCount {};
 
 public:
 	TurnController() = default;

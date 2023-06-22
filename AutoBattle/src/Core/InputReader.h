@@ -7,11 +7,11 @@
 class InputReader
 {
 public:
-	const Vector2& GetMapSize();
+	const Vector2 GetMapSize();
 	const std::string GetCharacterName();
-	const int& GetCharacterClass();
-	const bool& WannaQuit();
+	const int GetCharacterClass();
+	const bool WannaQuit();
 	
 private:
-	const int& GetIntInput();
+	const int GetIntInput();
 };

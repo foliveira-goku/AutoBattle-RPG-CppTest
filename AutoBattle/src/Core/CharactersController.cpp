@@ -1,5 +1,6 @@
 #include "CharactersController.h"
 #include "../Map/Grid.h"
+#include "../Character/CharacterClassAttributesProvider.h"
 #include <climits>
 
 CharactersController::CharactersController()
@@ -8,9 +9,10 @@ CharactersController::CharactersController()
 }
 
 void CharactersController::CreateCharacter(const std::string& Name, 
-	const Character::CharacterClass& CharacterClass, const int& CharacterId, const int& Team)
+	const CharacterClass::Types& CharacterClass, const int& CharacterId, const int& Team)
 {
-	allCharacters.emplace_back(new Character{ Name, CharacterClass, CharacterId, Team });
+	allCharacters.emplace_back(new Character{ Name, CharacterClass, 
+		CharacterClassAttributesProvider::GetAttributes(CharacterClass), CharacterId, Team });
 }
 
 void CharactersController::SetCharactersToRandomPlace(const Grid& Grid)
@@ -91,7 +93,7 @@ void CharactersController::AttackOpponent(Character& CurrentCharacter, Character
 
 void CharactersController::MoveTowardsOpponent(Character& CurrentCharacter, const Vector2& OpponentPosition, const Grid& Grid)
 {
-	GridCell::Direction directionToOpponent = GetDirectionTowardsTarget(CurrentCharacter.GetPosition(), OpponentPosition);
+	Direction::Direction directionToOpponent = GetDirectionTowardsTarget(CurrentCharacter.GetPosition(), OpponentPosition);
 
 	GridCell& oldCell = Grid.GetCellAt(CurrentCharacter.GetPosition());
 	oldCell.FreeCell();
@@ -129,17 +131,17 @@ Character& CharactersController::GetClosestOpponent(const Character& CurrentChar
 	return *currentClosestEnemy;
 }
 
-const GridCell::Direction& CharactersController::GetDirectionTowardsTarget(const Vector2& CharacterPosition, const Vector2& TargetPosition) const
+const Direction::Direction& CharactersController::GetDirectionTowardsTarget(const Vector2& CharacterPosition, const Vector2& TargetPosition) const
 {
 	int xDiff = TargetPosition.X - CharacterPosition.X;
 	int yDiff = TargetPosition.Y - CharacterPosition.Y;
 
 	if (xDiff > 0)
-		return GridCell::Direction::East;
+		return Direction::Direction::East;
 	else if (xDiff < 0)
-		return GridCell::Direction::West;
+		return Direction::Direction::West;
 	else if (yDiff > 0)
-		return GridCell::Direction::North;
+		return Direction::Direction::North;
 	else
-		return GridCell::Direction::South;
+		return Direction::Direction::South;
 }

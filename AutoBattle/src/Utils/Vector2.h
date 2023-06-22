@@ -5,8 +5,8 @@
 
 struct Vector2
 {
-	int X;
-	int Y;
+	int X{};
+	int Y{};
 
 	Vector2() = default;
 

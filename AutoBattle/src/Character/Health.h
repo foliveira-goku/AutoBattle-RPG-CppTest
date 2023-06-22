@@ -5,8 +5,8 @@
 class Health
 {
 private:
-	const int maxHealth;
-	int currentHealth;
+	const int maxHealth {};
+	int currentHealth {};
 
 public:
 	Health(const int& MaxHealth);

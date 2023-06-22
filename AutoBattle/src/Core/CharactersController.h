@@ -8,12 +8,12 @@
 class CharactersController
 {
 private:
-	std::vector<std::shared_ptr<Character>> allCharacters;
-	std::weak_ptr<Character> currentCharacter;
+	std::vector<std::shared_ptr<Character>> allCharacters{};
+	std::weak_ptr<Character> currentCharacter{};
 
 public:
 	CharactersController();
-	void CreateCharacter(const std::string& Name, const Character::CharacterClass& CharacterClass, 
+	void CreateCharacter(const std::string& Name, const CharacterClass::Types& CharacterClass, 
 		const int& CharacterId, const int& Team);
 	void SetCharactersToRandomPlace(const Grid& Grid);
 	void ExecuteTurnAction(const int& CurrentCharIndex, const Grid& Grid);
@@ -24,5 +24,5 @@ private:
 	void AttackOpponent(Character& CurrentCharacter, Character& OpponentCharacter);
 	void MoveTowardsOpponent(Character& CurrentCharacter, const Vector2& OpponentPosition, const Grid& Grid);
 	Character& GetClosestOpponent(const Character& CurrentCharacter);
-	const GridCell::Direction& GetDirectionTowardsTarget(const Vector2& CharacterPosition, const Vector2& TargetPosition) const;
+	const Direction::Direction& GetDirectionTowardsTarget(const Vector2& CharacterPosition, const Vector2& TargetPosition) const;
 };
